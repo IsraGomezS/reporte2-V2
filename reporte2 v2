@@ -1,0 +1,86 @@
+//Hernández García Daniel Esteban
+//Gómez Segovia David Israel
+//Mendoza Suarez Carlos Manuel
+#include<stdio.h>
+#include <locale.h>
+#define pf printf
+#define sf scanf
+float *o,*w;
+int i,alumnos;
+void CalcProm(float CP[],int NA);
+void EdadProm(float C[],int EA[],int NA);
+void ListaCompleta(int NumeroCuenta[],int Edad[],float cali[],int n);
+
+main()
+{
+	do{
+		system("cls");
+	    setlocale(LC_ALL,"spanish");
+	    pf("\n¿Cuántos alumnos desea registrar? (Máximo 30)\n");
+	    sf("%i",&alumnos);
+	    
+	    int NC[alumnos], edad[alumnos];
+		float cal[alumnos];
+	    
+	    if(alumnos<=30){
+	            for(i=0;i<alumnos;i++){
+	            	system("cls");
+	                pf("\nAlumno %i\n",i+1);
+	                pf("Introduzca su número de cuenta: ");
+	                sf("%i",&NC[i]);
+	                pf("Introduzca su edad: ");
+	                sf("%i",&edad[i]);
+	                pf("Introduzca su calificación: ");
+	                sf("%f",&cal[i]);
+	            }
+	            
+	            system("cls");
+	            pf("\t****Lista de los alumnos:****\n\n");
+	            ListaCompleta(NC,edad,cal,alumnos);
+	            CalcProm(cal,alumnos);
+	            pf("\nEl promedio de calificaciones es: %.2f\n",*o);
+	            EdadProm(cal,edad,alumnos);
+	            pf("\nEl promedio de las edades de los alumnos cuya calificación es igual o mayor a 6,0 es: %.2f\n",*w);
+   	   	}
+			else{
+		        pf("No puedes registrar más de 30\n");
+		        system("pause");
+	    	}
+	}while(alumnos>30);
+}
+
+//----Funciones------
+
+void CalcProm(float CP[],int NA)
+{
+    float promedio=0;
+    float  suma=0;
+    for(i=0;i<NA;i++){
+        suma+=CP[i];
+    }  
+        promedio=suma/NA;
+      	o=&promedio;
+}
+
+
+void EdadProm(float C[],int EA[],int NA)
+{
+    float suma=0,prom=0;
+    int n=0;
+    for(i=0;i<NA;i++){
+        if(C[i]>=6){
+            suma+=EA[i];
+            n+=1;
+        }
+    }
+    prom=suma/n;
+    w=&prom;
+}
+
+void ListaCompleta(int NumeroCuenta[],int Edad[],float cali[],int n)
+{
+    int i;
+    for(i=0;i<n;i++){
+        pf("Alumno %i:\nNumero de cuenta: %i\t Edad: %i\t Calificación: %.2f\n\n",i+1,NumeroCuenta[i],Edad[i],cali[i]);
+    }
+}
